@@ -1,8 +1,9 @@
 files=$(ls $1* | sort -t '-' -n -k 2 | tr '\n' ' ')
-echo "-- Compiling: "$files" --"
+echo "Compiling: "$files""
 firstimg=${files%% *}
 imgwidth="$(sips -g pixelWidth "$firstimg" | awk '/pixelWidth/  { printf("%d",  $2) }')"
 imgheight="$(sips -g pixelHeight "$firstimg" | awk '/pixelHeight/  { printf("%d",  $2) }')"
 dimensions=$imgwidth"x"$imgheight
-montage $files -tile x1 -background None -geometry $dimensions+0+0 spritesheet.png
-echo "-- Complete --"
+montage $files -tile x1 -background None -geometry $dimensions+0+0 $1.png
+echo
+echo "\033[32mCompiled to $1.png"
